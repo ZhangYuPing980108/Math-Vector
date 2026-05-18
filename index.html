@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>空間中的平面與直線 · 高二數學</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0C1321; --bg2:#111C2E; --bg3:#172038;
+  --card:#1B2540; --card2:#202D4A;
+  --border:#263350; --border2:#304070;
+  --blue:#4D8EFF; --teal:#00C2A0; --amber:#FFB340; --red:#FF5A6A; --purple:#A78BFF;
+  --text:#D8E4FF; --text2:#8A9EC8; --text3:#5C729A;
+  --radius:10px;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Noto Sans TC',sans-serif; font-size:15px; line-height:1.7;
+  min-height:100vh; overflow-x:hidden;
+}
+
+/* ── header ── */
+header{
+  background: linear-gradient(135deg, #0A1628 0%, #122040 50%, #0D1A35 100%);
+  border-bottom:1px solid var(--border);
+  padding:2.8rem 2rem 2rem;
+  text-align:center; position:relative; overflow:hidden;
+}
+header::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background: radial-gradient(ellipse at 30% 50%, rgba(77,142,255,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 30%, rgba(0,194,160,0.06) 0%, transparent 50%);
+}
+.hd-tag{
+  font-size:0.72rem; letter-spacing:0.3em; color:var(--teal);
+  text-transform:uppercase; margin-bottom:0.7rem;
+}
+header h1{
+  font-family:'Noto Serif TC',serif; font-weight:600;
+  font-size:clamp(1.6rem,4vw,2.5rem); color:#fff;
+  line-height:1.2; margin-bottom:0.5rem;
+}
+header h1 span{color:var(--blue);}
+.hd-sub{
+  font-size:0.88rem; color:var(--text2); letter-spacing:0.08em;
+  margin-bottom:1.6rem;
+}
+.hd-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;}
+.chip{
+  font-size:0.75rem; padding:0.25rem 0.8rem;
+  border-radius:20px; border:1px solid var(--border2);
+  color:var(--text2); background:rgba(255,255,255,0.04);
+}
+
+/* ── nav tabs ── */
+nav{
+  background:var(--bg2); border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:100;
+  overflow-x:auto;
+}
+.tabs{
+  display:flex; min-width:max-content;
+  padding:0 1rem;
+}
+.tab-btn{
+  padding:0.95rem 1.3rem;
+  background:transparent; border:none; border-bottom:2px solid transparent;
+  color:var(--text2); font-family:inherit; font-size:0.85rem;
+  cursor:pointer; white-space:nowrap; transition:all 0.2s;
+  display:flex; align-items:center; gap:0.4rem;
+}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--blue); border-bottom-color:var(--blue);}
+.tab-icon{font-size:1rem;}
+
+/* ── main ── */
+main{max-width:960px; margin:0 auto; padding:2rem 1.2rem 4rem;}
+section{display:none;}
+section.active{display:block;}
+
+/* ── section header ── */
+.sec-title{
+  font-family:'Noto Serif TC',serif; font-size:1.5rem; font-weight:600;
+  color:#fff; margin-bottom:0.4rem;
+}
+.sec-desc{color:var(--text2); font-size:0.9rem; margin-bottom:2rem; padding-bottom:1.5rem;
+  border-bottom:1px solid var(--border);}
+
+/* ── cards ── */
+.card{
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:1.5rem;
+  margin-bottom:1.2rem;
+}
+.card-title{
+  font-size:0.78rem; letter-spacing:0.2em; color:var(--teal);
+  margin-bottom:0.9rem; display:flex; align-items:center; gap:0.5rem;
+}
+.card-title::after{content:'';flex:1;height:1px;background:var(--border2);}
+
+/* ── formula block ── */
+.formula{
+  background:var(--bg); border:1px solid var(--border2);
+  border-radius:8px; padding:1rem 1.2rem;
+  margin:0.8rem 0; overflow-x:auto;
+  font-size:1.05rem; text-align:center;
+}
+.formula-inline{
+  background:var(--bg); border:1px solid var(--border);
+  border-radius:5px; padding:0.1rem 0.45rem;
+  font-size:0.9em; display:inline-block;
+}
+
+/* ── highlight boxes ── */
+.box{border-radius:8px; padding:1rem 1.2rem; margin:1rem 0;}
+.box.blue{background:rgba(77,142,255,0.08); border:1px solid rgba(77,142,255,0.25);}
+.box.teal{background:rgba(0,194,160,0.08); border:1px solid rgba(0,194,160,0.25);}
+.box.amber{background:rgba(255,179,64,0.08); border:1px solid rgba(255,179,64,0.25);}
+.box.red{background:rgba(255,90,106,0.08); border:1px solid rgba(255,90,106,0.25);}
+.box.purple{background:rgba(167,139,255,0.08); border:1px solid rgba(167,139,255,0.25);}
+.box-title{font-size:0.8rem;font-weight:700;letter-spacing:0.1em;margin-bottom:0.5rem;}
+.box.blue .box-title{color:var(--blue);}
+.box.teal .box-title{color:var(--teal);}
+.box.amber .box-title{color:var(--amber);}
+.box.red .box-title{color:var(--red);}
+.box.purple .box-title{color:var(--purple);}
+
+/* ── grid ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+@media(max-width:620px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+/* ── concept mini-cards ── */
+.mini-card{
+  background:var(--card2); border:1px solid var(--border);
+  border-radius:8px; padding:1rem;
+}
+.mini-card h4{font-size:0.85rem;color:var(--blue);margin-bottom:0.5rem;}
+.mini-card p{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+
+/* ── step list ── */
+.steps{list-style:none;counter-reset:step;}
+.steps li{
+  counter-increment:step; display:flex; gap:1rem;
+  padding:0.75rem 0; border-bottom:1px solid var(--border);
+}
+.steps li:last-child{border-bottom:none;}
+.steps li::before{
+  content:counter(step);
+  min-width:26px;height:26px;border-radius:50%;
+  background:rgba(77,142,255,0.15); border:1px solid rgba(77,142,255,0.3);
+  color:var(--blue); font-size:0.78rem; font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;
+}
+
+/* ── relation table ── */
+.rel-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+.rel-table th{
+  background:var(--bg); color:var(--text2);
+  padding:0.6rem 0.9rem; border:1px solid var(--border2);
+  font-weight:500; text-align:left;
+}
+.rel-table td{
+  padding:0.6rem 0.9rem; border:1px solid var(--border);
+  vertical-align:top; line-height:1.7;
+}
+.rel-table tr:hover td{background:rgba(255,255,255,0.02);}
+.badge{
+  display:inline-block; padding:0.1rem 0.5rem; border-radius:4px;
+  font-size:0.75rem; font-weight:500;
+}
+.badge-b{background:rgba(77,142,255,0.15);color:var(--blue);}
+.badge-t{background:rgba(0,194,160,0.15);color:var(--teal);}
+.badge-a{background:rgba(255,179,64,0.15);color:var(--amber);}
+.badge-r{background:rgba(255,90,106,0.15);color:var(--red);}
+.badge-p{background:rgba(167,139,255,0.15);color:var(--purple);}
+
+/* ── calculator ── */
+.calc{background:var(--bg); border:1px solid var(--border2); border-radius:var(--radius); padding:1.5rem;}
+.calc-title{font-size:1rem;font-weight:600;color:#fff;margin-bottom:1.2rem;}
+.input-group{margin-bottom:1rem;}
+.input-group label{display:block;font-size:0.78rem;color:var(--text2);margin-bottom:0.35rem;letter-spacing:0.05em;}
+.input-row{display:flex;gap:0.6rem;flex-wrap:wrap;}
+.calc-input{
+  background:var(--card); border:1px solid var(--border2);
+  border-radius:6px; color:var(--text); font-family:'JetBrains Mono',monospace;
+  font-size:0.95rem; padding:0.5rem 0.7rem; width:80px; outline:none;
+  transition:border-color 0.2s;
+}
+.calc-input:focus{border-color:var(--blue);}
+.calc-input.wide{width:140px;}
+.calc-label{
+  font-size:0.78rem; color:var(--text3);
+  display:flex;align-items:center;padding-top:0.5rem;
+}
+.calc-btn{
+  margin-top:1rem; padding:0.65rem 1.5rem;
+  background:rgba(77,142,255,0.15); border:1px solid rgba(77,142,255,0.35);
+  border-radius:7px; color:var(--blue); font-family:inherit; font-size:0.9rem;
+  cursor:pointer; transition:all 0.2s;
+}
+.calc-btn:hover{background:rgba(77,142,255,0.25);}
+.calc-result{
+  margin-top:1.2rem; padding:1rem 1.2rem;
+  background:var(--card2); border:1px solid var(--border2); border-radius:8px;
+  display:none;
+}
+.calc-result.show{display:block;}
+.result-label{font-size:0.75rem;color:var(--text3);margin-bottom:0.5rem;letter-spacing:0.1em;}
+.result-val{font-size:1.3rem;color:var(--teal);font-weight:700;margin-bottom:0.6rem;}
+.result-steps{font-size:0.82rem;color:var(--text2);line-height:2;}
+
+/* ── quiz ── */
+.quiz-card{
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:1.5rem; margin-bottom:1.2rem;
+}
+.quiz-num{
+  font-size:0.72rem; letter-spacing:0.2em; color:var(--text3); margin-bottom:0.7rem;
+}
+.quiz-q{font-size:0.95rem;color:var(--text);margin-bottom:1.1rem;line-height:1.8;}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:1rem;}
+@media(max-width:500px){.choices{grid-template-columns:1fr;}}
+.choice-btn{
+  padding:0.55rem 0.9rem; background:var(--card2);
+  border:1px solid var(--border2); border-radius:7px;
+  color:var(--text2); font-family:inherit; font-size:0.85rem;
+  cursor:pointer; text-align:left; transition:all 0.2s; line-height:1.5;
+}
+.choice-btn:hover:not(:disabled){background:rgba(77,142,255,0.1);border-color:rgba(77,142,255,0.3);color:var(--text);}
+.choice-btn.correct{background:rgba(0,194,160,0.12);border-color:rgba(0,194,160,0.4);color:var(--teal);}
+.choice-btn.wrong{background:rgba(255,90,106,0.1);border-color:rgba(255,90,106,0.3);color:var(--red);}
+.choice-btn:disabled{cursor:default;}
+.quiz-explain{
+  font-size:0.83rem; color:var(--text2);
+  background:rgba(77,142,255,0.06); border:1px solid rgba(77,142,255,0.15);
+  border-radius:7px; padding:0.9rem 1.1rem; line-height:1.9; display:none;
+}
+.quiz-explain.show{display:block;}
+.quiz-explain .math-step{color:var(--blue);}
+
+/* ── overview grid ── */
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
+.ov-card{
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:1.2rem; cursor:pointer;
+  transition:all 0.2s; position:relative; overflow:hidden;
+}
+.ov-card::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+}
+.ov-card.c1::before{background:var(--blue);}
+.ov-card.c2::before{background:var(--teal);}
+.ov-card.c3::before{background:var(--amber);}
+.ov-card.c4::before{background:var(--purple);}
+.ov-card.c5::before{background:var(--red);}
+.ov-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.ov-icon{font-size:1.6rem;margin-bottom:0.6rem;}
+.ov-name{font-size:0.9rem;font-weight:600;color:#fff;margin-bottom:0.3rem;}
+.ov-desc{font-size:0.78rem;color:var(--text3);line-height:1.5;}
+
+/* ── progress bar ── */
+.progress-bar{
+  height:4px; background:var(--border); border-radius:2px; margin:1.5rem 0 0.5rem;
+  overflow:hidden;
+}
+.progress-fill{height:100%;background:var(--blue);border-radius:2px;transition:width 0.4s;}
+.progress-label{font-size:0.78rem;color:var(--text3);}
+
+/* ── collapsible ── */
+.collapse-btn{
+  width:100%; text-align:left; background:var(--card2); border:1px solid var(--border);
+  border-radius:8px; padding:0.8rem 1rem; color:var(--text);
+  font-family:inherit; font-size:0.9rem; cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center;
+  transition:background 0.2s; margin-bottom:0.5rem;
+}
+.collapse-btn:hover{background:rgba(255,255,255,0.04);}
+.collapse-btn .arrow{transition:transform 0.3s;}
+.collapse-btn.open .arrow{transform:rotate(90deg);}
+.collapse-content{display:none; padding:0.8rem 1rem 1rem; border:1px solid var(--border);
+  border-top:none; border-radius:0 0 8px 8px; background:var(--card);
+  margin-top:-0.5rem; margin-bottom:0.8rem;}
+.collapse-content.show{display:block;}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+
+/* KaTeX overrides */
+.katex{color:inherit!important;}
+.katex-display{margin:0.3rem 0!important;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <p class="hd-tag">高中數學 · 高二 · 空間向量</p>
+  <h1>空間中的<span>平面</span>與<span>直線</span></h1>
+  <p class="hd-sub">平面方程式 · 直線方程式 · 位置關係 · 距離公式 · 段考重點整理</p>
+  <div class="hd-chips">
+    <span class="chip">法向量</span>
+    <span class="chip">點到平面距離</span>
+    <span class="chip">異面直線</span>
+    <span class="chip">兩平面夾角</span>
+    <span class="chip">參數式</span>
+    <span class="chip">截距式</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('overview',this)">
+      <span class="tab-icon">🗺</span> 概覽
+    </button>
+    <button class="tab-btn" onclick="switchTab('plane',this)">
+      <span class="tab-icon">📐</span> 平面方程式
+    </button>
+    <button class="tab-btn" onclick="switchTab('line',this)">
+      <span class="tab-icon">📏</span> 直線方程式
+    </button>
+    <button class="tab-btn" onclick="switchTab('relation',this)">
+      <span class="tab-icon">🔗</span> 位置關係
+    </button>
+    <button class="tab-btn" onclick="switchTab('distance',this)">
+      <span class="tab-icon">📍</span> 距離公式
+    </button>
+    <button class="tab-btn" onclick="switchTab('quiz',this)">
+      <span class="tab-icon">✏️</span> 段考練習
+    </button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ════════════ 概覽 ════════════ -->
+<section id="tab-overview" class="active">
+  <p class="sec-title">本單元概覽</p>
+  <p class="sec-desc">點擊下方各主題卡片可快速跳轉至對應章節，掌握考點分佈。</p>
+
+  <div class="overview-grid" style="margin-bottom:2rem;">
+    <div class="ov-card c1" onclick="switchTabById('plane')">
+      <div class="ov-icon">📐</div>
+      <div class="ov-name">平面方程式</div>
+      <div class="ov-desc">一般式、截距式、過三點求平面、法向量的意義</div>
+    </div>
+    <div class="ov-card c2" onclick="switchTabById('line')">
+      <div class="ov-icon">📏</div>
+      <div class="ov-name">直線方程式</div>
+      <div class="ov-desc">參數式、對稱式、過兩點直線、兩平面的交線</div>
+    </div>
+    <div class="ov-card c3" onclick="switchTabById('relation')">
+      <div class="ov-icon">🔗</div>
+      <div class="ov-name">位置關係</div>
+      <div class="ov-desc">平行、相交、垂直、異面直線的判斷方法</div>
+    </div>
+    <div class="ov-card c4" onclick="switchTabById('distance')">
+      <div class="ov-icon">📍</div>
+      <div class="ov-name">距離公式</div>
+      <div class="ov-desc">點→平面、點→直線、平行平面、異面直線距離</div>
+    </div>
+    <div class="ov-card c5" onclick="switchTabById('quiz')">
+      <div class="ov-icon">✏️</div>
+      <div class="ov-name">段考練習</div>
+      <div class="ov-desc">6 題典型考題，即時批改，附詳細解析</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">核心公式速查</div>
+    <div class="grid2">
+      <div>
+        <div class="box teal" style="margin-bottom:0.8rem;">
+          <div class="box-title">平面一般式</div>
+          <div class="formula" style="font-size:0.95rem;">$ax+by+cz+d=0$</div>
+          <p style="font-size:0.8rem;color:var(--text2);">法向量 $\vec{n}=(a,b,c)$</p>
+        </div>
+        <div class="box blue">
+          <div class="box-title">點到平面距離</div>
+          <div class="formula" style="font-size:0.95rem;">$d=\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$</div>
+        </div>
+      </div>
+      <div>
+        <div class="box purple" style="margin-bottom:0.8rem;">
+          <div class="box-title">直線對稱式</div>
+          <div class="formula" style="font-size:0.9rem;">$\dfrac{x-x_0}{l}=\dfrac{y-y_0}{m}=\dfrac{z-z_0}{n}$</div>
+          <p style="font-size:0.8rem;color:var(--text2);">方向向量 $\vec{v}=(l,m,n)$</p>
+        </div>
+        <div class="box amber">
+          <div class="box-title">兩異面直線距離</div>
+          <div class="formula" style="font-size:0.88rem;">$d=\dfrac{|\overrightarrow{P_1P_2}\cdot(\vec{v_1}\times\vec{v_2})|}{|\vec{v_1}\times\vec{v_2}|}$</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">考點分佈（段考頻率）</div>
+    <div style="display:grid;gap:0.7rem;">
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.3rem;">
+          <span>點到平面距離</span><span style="color:var(--red);">★★★★★ 必考</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--red);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.3rem;">
+          <span>求平面/直線方程式</span><span style="color:var(--amber);">★★★★☆ 常考</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:80%;background:var(--amber);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.3rem;">
+          <span>判斷位置關係</span><span style="color:var(--amber);">★★★★☆ 常考</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:75%;background:var(--amber);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.3rem;">
+          <span>兩平面/直線夾角</span><span style="color:var(--blue);">★★★☆☆ 次常考</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:55%;background:var(--blue);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.3rem;">
+          <span>異面直線距離</span><span style="color:var(--purple);">★★★☆☆ 進階</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:50%;background:var(--purple);"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ 平面方程式 ════════════ -->
+<section id="tab-plane">
+  <p class="sec-title">平面方程式</p>
+  <p class="sec-desc">空間中任何一個平面都可以用一次方程式描述，關鍵在於掌握「法向量」的概念。</p>
+
+  <div class="card">
+    <div class="card-title">一般式</div>
+    <div class="formula">$$ax + by + cz + d = 0 \quad (a,b,c \text{ 不全為 }0)$$</div>
+    <div class="grid2" style="margin-top:1rem;">
+      <div class="box blue">
+        <div class="box-title">法向量</div>
+        <p style="font-size:0.85rem;">$\vec{n}=(a,b,c)$ 垂直於平面上任意向量。<br>
+        法向量決定平面的「方向」，加上一個已知點，即可唯一確定一個平面。</p>
+      </div>
+      <div class="box teal">
+        <div class="box-title">點法式（最常用！）</div>
+        <p style="font-size:0.85rem;">已知平面過點 $P_0(x_0,y_0,z_0)$，且法向量為 $(a,b,c)$：</p>
+        <div class="formula" style="font-size:0.9rem;">$a(x-x_0)+b(y-y_0)+c(z-z_0)=0$</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">截距式</div>
+    <p style="font-size:0.88rem;color:var(--text2);margin-bottom:0.8rem;">當平面與三坐標軸分別交於 $(p,0,0)$、$(0,q,0)$、$(0,0,r)$（$p,q,r$ 均不為零）時：</p>
+    <div class="formula">$$\frac{x}{p}+\frac{y}{q}+\frac{z}{r}=1$$</div>
+    <div class="box amber" style="margin-top:0.8rem;">
+      <div class="box-title">⚠ 考試陷阱</div>
+      <p style="font-size:0.85rem;">截距式要求三個截距均不為零。若平面過原點（$d=0$），不能用截距式！</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">過三點求平面方程式</div>
+    <ol class="steps">
+      <li><div><strong>求兩個方向向量</strong>：設三點為 $A,B,C$，取 $\overrightarrow{AB}$ 與 $\overrightarrow{AC}$。</div></li>
+      <li><div><strong>求法向量</strong>：$\vec{n}=\overrightarrow{AB}\times\overrightarrow{AC}$（外積）。</div></li>
+      <li><div><strong>代入點法式</strong>：以三點中任一點（如 $A$）代入 $\vec{n}\cdot(\vec{r}-\overrightarrow{OA})=0$。</div></li>
+    </ol>
+    <div class="box blue" style="margin-top:0.8rem;">
+      <div class="box-title">外積公式</div>
+      <p style="font-size:0.85rem;">若 $\vec{u}=(u_1,u_2,u_3)$，$\vec{v}=(v_1,v_2,v_3)$，則：</p>
+      <div class="formula" style="font-size:0.88rem;">$\vec{u}\times\vec{v}=\begin{vmatrix}\vec{i}&\vec{j}&\vec{k}\\u_1&u_2&u_3\\v_1&v_2&v_3\end{vmatrix}=(u_2v_3-u_3v_2,\;u_3v_1-u_1v_3,\;u_1v_2-u_2v_1)$</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">平行與垂直條件</div>
+    <div class="grid2">
+      <div class="box teal">
+        <div class="box-title">兩平面平行</div>
+        <p style="font-size:0.85rem;">法向量平行（成比例）：<br>
+        $\vec{n_1}=k\vec{n_2}$，即 $\dfrac{a_1}{a_2}=\dfrac{b_1}{b_2}=\dfrac{c_1}{c_2}$</p>
+      </div>
+      <div class="box purple">
+        <div class="box-title">兩平面垂直</div>
+        <p style="font-size:0.85rem;">法向量垂直（內積為零）：<br>
+        $\vec{n_1}\cdot\vec{n_2}=0$，即 $a_1a_2+b_1b_2+c_1c_2=0$</p>
+      </div>
+    </div>
+    <div class="box blue" style="margin-top:0.8rem;">
+      <div class="box-title">兩平面夾角公式</div>
+      <div class="formula">$\cos\theta=\dfrac{|\vec{n_1}\cdot\vec{n_2}|}{|\vec{n_1}||\vec{n_2}|}$</div>
+      <p style="font-size:0.82rem;color:var(--text2);">注意取絕對值，使夾角範圍在 $[0°,90°]$ 之間。</p>
+    </div>
+  </div>
+
+  <!-- 法向量計算機 -->
+  <div class="card">
+    <div class="card-title">🧮 互動：法向量計算機（外積）</div>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:1.2rem;">輸入兩個向量，自動計算它們的外積（即可作為平面法向量）。</p>
+    <div class="calc">
+      <div class="input-group">
+        <label>向量 $\vec{u}=(u_1,\, u_2,\, u_3)$</label>
+        <div class="input-row">
+          <div><div class="calc-label">$u_1$</div><input class="calc-input" id="u1" type="number" value="1" step="any"></div>
+          <div><div class="calc-label">$u_2$</div><input class="calc-input" id="u2" type="number" value="2" step="any"></div>
+          <div><div class="calc-label">$u_3$</div><input class="calc-input" id="u3" type="number" value="0" step="any"></div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>向量 $\vec{v}=(v_1,\, v_2,\, v_3)$</label>
+        <div class="input-row">
+          <div><div class="calc-label">$v_1$</div><input class="calc-input" id="v1" type="number" value="0" step="any"></div>
+          <div><div class="calc-label">$v_2$</div><input class="calc-input" id="v2" type="number" value="1" step="any"></div>
+          <div><div class="calc-label">$v_3$</div><input class="calc-input" id="v3" type="number" value="3" step="any"></div>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcCross()">計算外積 $\vec{u}\times\vec{v}$</button>
+      <div class="calc-result" id="cross-result">
+        <div class="result-label">外積（法向量）</div>
+        <div class="result-val" id="cross-val"></div>
+        <div class="result-steps" id="cross-steps"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ 直線方程式 ════════════ -->
+<section id="tab-line">
+  <p class="sec-title">直線方程式</p>
+  <p class="sec-desc">空間中的直線由「一個點 + 一個方向向量」唯一確定，有兩種主要表達形式。</p>
+
+  <div class="card">
+    <div class="card-title">參數式（向量式）</div>
+    <p style="font-size:0.87rem;color:var(--text2);margin-bottom:0.8rem;">
+      過點 $P_0(x_0,y_0,z_0)$，方向向量 $\vec{v}=(l,m,n)$：
+    </p>
+    <div class="formula">$$(x,y,z)=(x_0,y_0,z_0)+t(l,m,n),\quad t\in\mathbb{R}$$</div>
+    <p style="font-size:0.85rem;color:var(--text2);margin-top:0.8rem;">展開形式：</p>
+    <div class="formula">$$x=x_0+lt,\quad y=y_0+mt,\quad z=z_0+nt$$</div>
+    <div class="box teal" style="margin-top:0.8rem;">
+      <div class="box-title">參數式的優點</div>
+      <p style="font-size:0.85rem;">令 $t$ 為特定值，可直接求出直線上的點座標。常用於求交點。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">對稱式（標準式）</div>
+    <p style="font-size:0.87rem;color:var(--text2);margin-bottom:0.8rem;">從參數式消去 $t$（假設 $l,m,n$ 均不為零）：</p>
+    <div class="formula">$$\frac{x-x_0}{l}=\frac{y-y_0}{m}=\frac{z-z_0}{n}$$</div>
+    <div class="box amber">
+      <div class="box-title">⚠ 若分母有零的情形</div>
+      <p style="font-size:0.85rem;">若 $l=0$（即方向向量的 $x$ 分量為 $0$），表示直線上的 $x$ 坐標恆等於 $x_0$，寫法為 $x=x_0$，而其餘分量正常寫。</p>
+      <p style="font-size:0.85rem;margin-top:0.4rem;">例：$x=2,\;\dfrac{y-1}{3}=\dfrac{z+4}{-1}$</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">常見題型：如何求直線方程式</div>
+    <div style="display:grid;gap:0.6rem;">
+      <button class="collapse-btn" onclick="toggleCollapse('coll1',this)">
+        已知兩點 $A,B$，求直線 $AB$ 的方程式 <span class="arrow">▶</span>
+      </button>
+      <div class="collapse-content" id="coll1">
+        <p style="font-size:0.87rem;">方向向量 $\vec{v}=\overrightarrow{AB}=B-A$，再取其中一點代入對稱式即可。</p>
+        <div class="formula" style="font-size:0.87rem;">$\vec{v}=(x_B-x_A,\,y_B-y_A,\,z_B-z_A)$</div>
+      </div>
+
+      <button class="collapse-btn" onclick="toggleCollapse('coll2',this)">
+        已知直線平行於某直線，且過某點，求方程式 <span class="arrow">▶</span>
+      </button>
+      <div class="collapse-content" id="coll2">
+        <p style="font-size:0.87rem;">平行的兩直線方向向量相同（或成比例）。直接將給定方向向量與已知點代入即可。</p>
+      </div>
+
+      <button class="collapse-btn" onclick="toggleCollapse('coll3',this)">
+        求兩平面 $\pi_1$ 與 $\pi_2$ 的交線方程式 <span class="arrow">▶</span>
+      </button>
+      <div class="collapse-content" id="coll3">
+        <p style="font-size:0.87rem;"><strong>交線的方向向量</strong> $= \vec{n_1}\times\vec{n_2}$（兩平面法向量的外積）。</p>
+        <p style="font-size:0.87rem;margin-top:0.4rem;"><strong>交線上的一點</strong>：令 $z=0$（或選其他令某坐標為定值），解聯立方程式求出一個特定點。</p>
+      </div>
+
+      <button class="collapse-btn" onclick="toggleCollapse('coll4',this)">
+        直線與平面的關係（平行、相交、垂直） <span class="arrow">▶</span>
+      </button>
+      <div class="collapse-content" id="coll4">
+        <div class="grid2" style="margin-top:0.5rem;">
+          <div class="box blue">
+            <div class="box-title">直線與平面平行</div>
+            <p style="font-size:0.82rem;">$\vec{v}\cdot\vec{n}=0$<br>且直線上某點不在平面上</p>
+          </div>
+          <div class="box teal">
+            <div class="box-title">直線垂直於平面</div>
+            <p style="font-size:0.82rem;">$\vec{v}=k\vec{n}$<br>（方向向量平行於法向量）</p>
+          </div>
+        </div>
+        <div class="box amber" style="margin-top:0.6rem;">
+          <div class="box-title">直線與平面夾角</div>
+          <div class="formula" style="font-size:0.88rem;">$\sin\theta=\dfrac{|\vec{v}\cdot\vec{n}|}{|\vec{v}||\vec{n}|}$</div>
+          <p style="font-size:0.82rem;color:var(--text2);">夾角為直線與其在平面上投影的夾角，範圍 $[0°,90°]$。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 參數式轉換計算機 -->
+  <div class="card">
+    <div class="card-title">🧮 互動：直線方程式產生器</div>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:1.2rem;">輸入一個點與方向向量，自動生成參數式與對稱式。</p>
+    <div class="calc">
+      <div class="input-group">
+        <label>過點 $P_0(x_0,\;y_0,\;z_0)$</label>
+        <div class="input-row">
+          <div><div class="calc-label">$x_0$</div><input class="calc-input" id="lx0" type="number" value="2" step="any"></div>
+          <div><div class="calc-label">$y_0$</div><input class="calc-input" id="ly0" type="number" value="-1" step="any"></div>
+          <div><div class="calc-label">$z_0$</div><input class="calc-input" id="lz0" type="number" value="3" step="any"></div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>方向向量 $\vec{v}=(l,\;m,\;n)$</label>
+        <div class="input-row">
+          <div><div class="calc-label">$l$</div><input class="calc-input" id="ll" type="number" value="1" step="any"></div>
+          <div><div class="calc-label">$m$</div><input class="calc-input" id="lm" type="number" value="2" step="any"></div>
+          <div><div class="calc-label">$n$</div><input class="calc-input" id="ln" type="number" value="0" step="any"></div>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcLine()">產生方程式</button>
+      <div class="calc-result" id="line-result">
+        <div class="result-label">參數式</div>
+        <div style="font-size:0.9rem;margin-bottom:0.8rem;" id="line-param"></div>
+        <div class="result-label">對稱式</div>
+        <div style="font-size:0.9rem;" id="line-sym"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ 位置關係 ════════════ -->
+<section id="tab-relation">
+  <p class="sec-title">空間中的位置關係</p>
+  <p class="sec-desc">掌握判斷條件是本單元的核心考點，需熟記各種情況的數學判斷方式。</p>
+
+  <div class="card">
+    <div class="card-title">兩直線的位置關係</div>
+    <div style="overflow-x:auto;">
+      <table class="rel-table">
+        <tr>
+          <th>關係</th><th>判斷條件</th><th>幾何意義</th>
+        </tr>
+        <tr>
+          <td><span class="badge badge-t">平行</span></td>
+          <td>$\vec{v_1}=k\vec{v_2}$（方向向量成比例），且不共線</td>
+          <td>在同一個平面內，永不相交</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-b">相交</span></td>
+          <td>$\vec{v_1}$ 與 $\vec{v_2}$ 不成比例，且方程式有公共解</td>
+          <td>在同一個平面內，有且只有一個交點</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-r">異面</span></td>
+          <td>$(\overrightarrow{P_1P_2})\cdot(\vec{v_1}\times\vec{v_2})\neq 0$</td>
+          <td>不在同一個平面內</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-p">垂直（相交）</span></td>
+          <td>$\vec{v_1}\cdot\vec{v_2}=0$，且有交點</td>
+          <td>在同一平面內且夾角 $90°$</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="box amber" style="margin-top:1rem;">
+      <div class="box-title">🔑 異面直線判斷法（重要！）</div>
+      <p style="font-size:0.85rem;">設 $L_1$ 過 $P_1$，方向 $\vec{v_1}$；$L_2$ 過 $P_2$，方向 $\vec{v_2}$。</p>
+      <p style="font-size:0.85rem;margin-top:0.4rem;">若 $\vec{v_1}\times\vec{v_2}\neq\vec{0}$（非平行）且 $\overrightarrow{P_1P_2}\cdot(\vec{v_1}\times\vec{v_2})\neq 0$，則為<strong style="color:var(--red);">異面直線</strong>。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">兩平面的位置關係</div>
+    <div style="overflow-x:auto;">
+      <table class="rel-table">
+        <tr>
+          <th>關係</th><th>條件（法向量 $\vec{n_1},\vec{n_2}$）</th>
+        </tr>
+        <tr>
+          <td><span class="badge badge-t">平行（不重合）</span></td>
+          <td>$\vec{n_1}=k\vec{n_2}$，但方程式不等比例（$\dfrac{a_1}{a_2}=\dfrac{b_1}{b_2}=\dfrac{c_1}{c_2}\neq\dfrac{d_1}{d_2}$）</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-p">重合</span></td>
+          <td>$\dfrac{a_1}{a_2}=\dfrac{b_1}{b_2}=\dfrac{c_1}{c_2}=\dfrac{d_1}{d_2}$</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-b">相交</span></td>
+          <td>$\vec{n_1}$ 與 $\vec{n_2}$ 不成比例（交線方向 $=\vec{n_1}\times\vec{n_2}$）</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-r">垂直相交</span></td>
+          <td>$\vec{n_1}\cdot\vec{n_2}=0$</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 互動判斷器 -->
+  <div class="card">
+    <div class="card-title">🧮 互動：兩直線位置關係判斷器</div>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:1.2rem;">輸入兩條直線的過點與方向向量，自動判斷位置關係。</p>
+    <div class="calc">
+      <div class="grid2" style="gap:1.2rem;">
+        <div>
+          <div class="input-group">
+            <label>直線 $L_1$：過點 $(x_1,y_1,z_1)$</label>
+            <div class="input-row">
+              <input class="calc-input" id="r_px1" type="number" value="1" step="any" placeholder="x₁">
+              <input class="calc-input" id="r_py1" type="number" value="1" step="any" placeholder="y₁">
+              <input class="calc-input" id="r_pz1" type="number" value="0" step="any" placeholder="z₁">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>方向向量 $\vec{v_1}$</label>
+            <div class="input-row">
+              <input class="calc-input" id="r_d1x" type="number" value="2" step="any" placeholder="l">
+              <input class="calc-input" id="r_d1y" type="number" value="1" step="any" placeholder="m">
+              <input class="calc-input" id="r_d1z" type="number" value="-1" step="any" placeholder="n">
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="input-group">
+            <label>直線 $L_2$：過點 $(x_2,y_2,z_2)$</label>
+            <div class="input-row">
+              <input class="calc-input" id="r_px2" type="number" value="0" step="any" placeholder="x₂">
+              <input class="calc-input" id="r_py2" type="number" value="2" step="any" placeholder="y₂">
+              <input class="calc-input" id="r_pz2" type="number" value="-1" step="any" placeholder="z₂">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>方向向量 $\vec{v_2}$</label>
+            <div class="input-row">
+              <input class="calc-input" id="r_d2x" type="number" value="1" step="any" placeholder="l">
+              <input class="calc-input" id="r_d2y" type="number" value="3" step="any" placeholder="m">
+              <input class="calc-input" id="r_d2z" type="number" value="2" step="any" placeholder="n">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcRelation()">判斷位置關係</button>
+      <div class="calc-result" id="rel-result">
+        <div class="result-label">判斷結果</div>
+        <div class="result-val" id="rel-val"></div>
+        <div class="result-steps" id="rel-steps"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ 距離公式 ════════════ -->
+<section id="tab-distance">
+  <p class="sec-title">距離公式大全</p>
+  <p class="sec-desc">距離問題是段考必考，務必熟悉每一個公式的推導脈絡，而非死背。</p>
+
+  <div class="grid2" style="margin-bottom:1.2rem;">
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title">① 點到平面的距離</div>
+      <p style="font-size:0.85rem;color:var(--text2);">點 $P(x_0,y_0,z_0)$ 到平面 $ax+by+cz+d=0$ 的距離：</p>
+      <div class="formula">$$d=\frac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$$</div>
+      <div class="box teal" style="margin-top:0.8rem;">
+        <div class="box-title">記憶口訣</div>
+        <p style="font-size:0.83rem;">分子：代入點的坐標，取絕對值。<br>分母：法向量的長度。</p>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title">② 兩平行平面的距離</div>
+      <p style="font-size:0.85rem;color:var(--text2);">平面 $ax+by+cz+d_1=0$ 與 $ax+by+cz+d_2=0$（法向量相同）：</p>
+      <div class="formula">$$d=\frac{|d_1-d_2|}{\sqrt{a^2+b^2+c^2}}$$</div>
+      <div class="box amber" style="margin-top:0.8rem;">
+        <div class="box-title">⚠ 注意</div>
+        <p style="font-size:0.83rem;">必須先確認兩平面的 $a,b,c$ 係數完全相同（同一法向量），否則需先化齊。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:1.2rem;">
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title">③ 點到直線的距離</div>
+      <p style="font-size:0.85rem;color:var(--text2);">點 $P$ 到過 $P_0$、方向向量 $\vec{v}$ 的直線之距離：</p>
+      <div class="formula">$$d=\frac{|\overrightarrow{P_0P}\times\vec{v}|}{|\vec{v}|}$$</div>
+      <p style="font-size:0.82rem;color:var(--text3);margin-top:0.5rem;">外積的模代表平行四邊形面積，除以底邊即得高。</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title">④ 兩異面直線的距離</div>
+      <p style="font-size:0.85rem;color:var(--text2);">$L_1$ 過 $P_1$（方向 $\vec{v_1}$），$L_2$ 過 $P_2$（方向 $\vec{v_2}$）：</p>
+      <div class="formula" style="font-size:0.85rem;">$$d=\frac{|\overrightarrow{P_1P_2}\cdot(\vec{v_1}\times\vec{v_2})|}{|\vec{v_1}\times\vec{v_2}|}$$</div>
+      <div class="box purple" style="margin-top:0.8rem;">
+        <div class="box-title">直觀理解</div>
+        <p style="font-size:0.82rem;">$\vec{v_1}\times\vec{v_2}$ 是公垂向量（同時垂直兩直線），距離就是 $\overrightarrow{P_1P_2}$ 在公垂方向的分量。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">直線到平面的距離（平行時）</div>
+    <p style="font-size:0.87rem;color:var(--text2);margin-bottom:0.8rem;">
+      若直線 $L$ 平行於平面 $\pi$（即 $\vec{v}\cdot\vec{n}=0$ 且 $L$ 上的點不在 $\pi$ 上），則距離等同於<strong>直線上任意一點到平面的距離</strong>：
+    </p>
+    <div class="formula">$$d=\frac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$$</div>
+    <p style="font-size:0.83rem;color:var(--text3);margin-top:0.5rem;">其中 $(x_0,y_0,z_0)$ 為直線上任意一點。</p>
+  </div>
+
+  <!-- 距離計算機 -->
+  <div class="card">
+    <div class="card-title">🧮 互動：點到平面距離計算機</div>
+    <div class="calc">
+      <div class="input-group">
+        <label>平面方程式 $ax+by+cz+d=0$ 的係數</label>
+        <div class="input-row">
+          <div><div class="calc-label">$a$</div><input class="calc-input" id="d_a" type="number" value="2" step="any"></div>
+          <div><div class="calc-label">$b$</div><input class="calc-input" id="d_b" type="number" value="-1" step="any"></div>
+          <div><div class="calc-label">$c$</div><input class="calc-input" id="d_c" type="number" value="2" step="any"></div>
+          <div><div class="calc-label">$d$</div><input class="calc-input" id="d_d" type="number" value="3" step="any"></div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>點 $P(x_0,\;y_0,\;z_0)$</label>
+        <div class="input-row">
+          <div><div class="calc-label">$x_0$</div><input class="calc-input" id="d_x0" type="number" value="1" step="any"></div>
+          <div><div class="calc-label">$y_0$</div><input class="calc-input" id="d_y0" type="number" value="-2" step="any"></div>
+          <div><div class="calc-label">$z_0$</div><input class="calc-input" id="d_z0" type="number" value="3" step="any"></div>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcDist()">計算距離</button>
+      <div class="calc-result" id="dist-result">
+        <div class="result-label">點到平面距離</div>
+        <div class="result-val" id="dist-val"></div>
+        <div class="result-steps" id="dist-steps" style="white-space:pre-line;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧮 互動：兩異面直線距離計算機</div>
+    <div class="calc">
+      <div class="grid2" style="gap:1.2rem;">
+        <div>
+          <div class="input-group">
+            <label>$L_1$：過點 $P_1$</label>
+            <div class="input-row">
+              <input class="calc-input" id="sk_p1x" type="number" value="1" step="any" placeholder="x">
+              <input class="calc-input" id="sk_p1y" type="number" value="1" step="any" placeholder="y">
+              <input class="calc-input" id="sk_p1z" type="number" value="0" step="any" placeholder="z">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>方向向量 $\vec{v_1}$</label>
+            <div class="input-row">
+              <input class="calc-input" id="sk_v1x" type="number" value="1" step="any" placeholder="l">
+              <input class="calc-input" id="sk_v1y" type="number" value="0" step="any" placeholder="m">
+              <input class="calc-input" id="sk_v1z" type="number" value="1" step="any" placeholder="n">
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="input-group">
+            <label>$L_2$：過點 $P_2$</label>
+            <div class="input-row">
+              <input class="calc-input" id="sk_p2x" type="number" value="0" step="any" placeholder="x">
+              <input class="calc-input" id="sk_p2y" type="number" value="0" step="any" placeholder="y">
+              <input class="calc-input" id="sk_p2z" type="number" value="1" step="any" placeholder="z">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>方向向量 $\vec{v_2}$</label>
+            <div class="input-row">
+              <input class="calc-input" id="sk_v2x" type="number" value="1" step="any" placeholder="l">
+              <input class="calc-input" id="sk_v2y" type="number" value="1" step="any" placeholder="m">
+              <input class="calc-input" id="sk_v2z" type="number" value="0" step="any" placeholder="n">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcSkew()">計算異面直線距離</button>
+      <div class="calc-result" id="skew-result">
+        <div class="result-label">兩直線關係</div>
+        <div class="result-val" id="skew-type"></div>
+        <div class="result-label" style="margin-top:0.8rem;" id="skew-dist-lbl"></div>
+        <div class="result-val" id="skew-val"></div>
+        <div class="result-steps" id="skew-steps"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ 段考練習 ════════════ -->
+<section id="tab-quiz">
+  <p class="sec-title">段考模擬練習</p>
+  <p class="sec-desc">共 6 題，仿高雄區各高中（雄中、雄女、鳳山、高師大附中）高二上第二次段考風格命題。選擇後即時批改，並附詳細解析。</p>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.8rem;">
+    <div style="font-size:0.85rem;color:var(--text2);">答對題數：<span id="score-count" style="color:var(--teal);font-weight:700;">0</span> / <span id="score-total">6</span></div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <span style="font-size:0.72rem;padding:0.2rem 0.6rem;border-radius:4px;background:rgba(0,194,160,0.1);border:1px solid rgba(0,194,160,0.2);color:var(--teal);">★ = 基礎</span>
+      <span style="font-size:0.72rem;padding:0.2rem 0.6rem;border-radius:4px;background:rgba(255,179,64,0.1);border:1px solid rgba(255,179,64,0.2);color:var(--amber);">★★ = 中等</span>
+      <span style="font-size:0.72rem;padding:0.2rem 0.6rem;border-radius:4px;background:rgba(255,90,106,0.1);border:1px solid rgba(255,90,106,0.2);color:var(--red);">★★★ = 進階</span>
+      <button onclick="resetQuiz()" style="font-size:0.8rem;padding:0.3rem 0.9rem;background:rgba(255,255,255,0.05);border:1px solid var(--border2);border-radius:6px;color:var(--text2);cursor:pointer;font-family:inherit;">↺ 重新作答</button>
+    </div>
+  </div>
+
+  <!-- Q1 ★ 截距式求平面方程式 -->
+  <div class="quiz-card" id="q1">
+    <div class="quiz-num">題目 01 · 平面方程式（截距式）<span style="margin-left:0.8rem;font-size:0.72rem;padding:0.15rem 0.5rem;border-radius:4px;background:rgba(0,194,160,0.1);color:var(--teal);">★ 基礎</span></div>
+    <div class="quiz-q">
+      平面 $E$ 在 $x$、$y$、$z$ 軸上的截距分別為 $3$、$-2$、$6$，則平面 $E$ 的方程式為？
+    </div>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(this,'q1',false)">$3x - 2y + 6z = 1$</button>
+      <button class="choice-btn" onclick="answer(this,'q1',false)">$2x + 3y + z = 6$</button>
+      <button class="choice-btn" onclick="answer(this,'q1',true)">$2x - 3y + z = 6$</button>
+      <button class="choice-btn" onclick="answer(this,'q1',false)">$x - 2y + 3z = 6$</button>
+    </div>
+    <div class="quiz-explain" id="q1-exp">
+      <strong style="color:var(--teal);">解析：</strong>代入截距式 $\dfrac{x}{p}+\dfrac{y}{q}+\dfrac{z}{r}=1$，其中 $p=3$，$q=-2$，$r=6$：<br><br>
+      $\dfrac{x}{3}+\dfrac{y}{-2}+\dfrac{z}{6}=1$<br><br>
+      兩端同乘以 $6$（最小公倍數）：$2x-3y+z=6$。<br><br>
+      <span style="color:var(--text3);">⚠ 陷阱：截距為「負數」時，分母要保留負號，不可隨意正負化！</span>
+    </div>
+  </div>
+
+  <!-- Q2 ★ 點到平面距離 -->
+  <div class="quiz-card" id="q2">
+    <div class="quiz-num">題目 02 · 點到平面距離<span style="margin-left:0.8rem;font-size:0.72rem;padding:0.15rem 0.5rem;border-radius:4px;background:rgba(0,194,160,0.1);color:var(--teal);">★ 基礎</span></div>
+    <div class="quiz-q">
+      點 $P(2,\,1,\,-1)$ 到平面 $2x+y-2z+3=0$ 的距離為何？
+    </div>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(this,'q2',false)">$3$</button>
+      <button class="choice-btn" onclick="answer(this,'q2',true)">$\dfrac{10}{3}$</button>
+      <button class="choice-btn" onclick="answer(this,'q2',false)">$\dfrac{8}{3}$</button>
+      <button class="choice-btn" onclick="answer(this,'q2',false)">$4$</button>
+    </div>
+    <div class="quiz-explain" id="q2-exp">
+      <strong style="color:var(--teal);">解析：</strong><br>
+      法向量 $\vec{n}=(2,1,-2)$，$|\vec{n}|=\sqrt{4+1+4}=\sqrt{9}=3$。<br><br>
+      代入距離公式，分子 $= |2(2)+1(1)+(-2)(-1)+3|$<br>
+      $\phantom{代入距離公式，分子} = |4+1+2+3| = 10$<br><br>
+      $d=\dfrac{10}{3}$
+    </div>
+  </div>
+
+  <!-- Q3 ★★ 判斷兩平面是否垂直（內積法） -->
+  <div class="quiz-card" id="q3">
+    <div class="quiz-num">題目 03 · 兩平面的位置關係<span style="margin-left:0.8rem;font-size:0.72rem;padding:0.15rem 0.5rem;border-radius:4px;background:rgba(255,179,64,0.1);color:var(--amber);">★★ 中等</span></div>
+    <div class="quiz-q">
+      下列哪一組平面 $\pi_1$ 與 $\pi_2$ 互相垂直？
+    </div>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(this,'q3',false)">$\pi_1: x+y+z=1$，$\pi_2: x+y-z=2$</button>
+      <button class="choice-btn" onclick="answer(this,'q3',true)">$\pi_1: x+y=1$，$\pi_2: x-y+z=2$</button>
+      <button class="choice-btn" onclick="answer(this,'q3',false)">$\pi_1: x-z=1$，$\pi_2: y+z=2$</button>
+      <button class="choice-btn" onclick="answer(this,'q3',false)">$\pi_1: 2x+y=3$，$\pi_2: x-y+2z=1$</button>
+    </div>
+    <div class="quiz-explain" id="q3-exp">
+      <strong style="color:var(--teal);">解析：</strong>兩平面垂直的條件：法向量內積為零（$\vec{n_1}\cdot\vec{n_2}=0$）。<br><br>
+      <strong>逐一驗算：</strong><br>
+      (A) $\vec{n_1}=(1,1,1)$，$\vec{n_2}=(1,1,-1)$，內積 $=1+1-1=1\neq 0$，❌<br>
+      (B) $\vec{n_1}=(1,1,0)$，$\vec{n_2}=(1,-1,1)$，內積 $=1-1+0=0$ ✅ <strong style="color:var(--teal);">垂直！</strong><br>
+      (C) $\vec{n_1}=(1,0,-1)$，$\vec{n_2}=(0,1,1)$，內積 $=0+0-1=-1\neq 0$，❌<br>
+      (D) $\vec{n_1}=(2,1,0)$，$\vec{n_2}=(1,-1,2)$，內積 $=2-1+0=1\neq 0$，❌
+    </div>
+  </div>
+
+  <!-- Q4 ★★ 直線性質判斷（改用基本概念，不含異面） -->
+  <div class="quiz-card" id="q4">
+    <div class="quiz-num">題目 04 · 直線性質判斷<span style="margin-left:0.8rem;font-size:0.72rem;padding:0.15rem 0.5rem;border-radius:4px;background:rgba(255,179,64,0.1);color:var(--amber);">★★ 中等</span></div>
+    <div class="quiz-q">
+      已知直線 $L:\dfrac{x-1}{2}=\dfrac{y+2}{-1}=\dfrac{z}{1}$，下列敘述何者<strong>正確</strong>？
+    </div>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(this,'q4',false)">$L$ 的方向向量為 $(1,-2,1)$</button>
+      <button class="choice-btn" onclick="answer(this,'q4',true)">點 $(1,-2,0)$ 在直線 $L$ 上</button>
+      <button class="choice-btn" onclick="answer(this,'q4',false)">$L$ 與 $z$ 軸平行</button>
+      <button class="choice-btn" onclick="answer(this,'q4',false)">$L$ 垂直於平面 $x+y+z=1$</button>
+    </div>
+    <div class="quiz-explain" id="q4-exp">
+      <strong style="color:var(--teal);">解析：</strong><br>
+      由對稱式可知 $L$ 過點 $(1,-2,0)$，方向向量 $\vec{v}=(2,-1,1)$。<br><br>
+      (A) 方向向量應為 $(2,-1,1)$，不是 $(1,-2,1)$。❌<br>
+      (B) 令 $t=0$：$x=1,\;y=-2,\;z=0$，點 $(1,-2,0)$ 確實在 $L$ 上。✅<br>
+      (C) $z$ 軸方向向量 $(0,0,1)$ 與 $(2,-1,1)$ 不成比例，不平行。❌<br>
+      (D) 平面 $x+y+z=1$ 的法向量 $(1,1,1)$，與 $\vec{v}=(2,-1,1)$ 不成比例，故 $L$ 未垂直於該平面。❌
+    </div>
+  </div>
+
+  <!-- Q5 ★★ 過點且垂直平面的直線方程式 -->
+  <div class="quiz-card" id="q5">
+    <div class="quiz-num">題目 05 · 垂直平面的直線<span style="margin-left:0.8rem;font-size:0.72rem;padding:0.15rem 0.5rem;border-radius:4px;background:rgba(255,179,64,0.1);color:var(--amber);">★★ 中等</span></div>
+    <div class="quiz-q">
+      過點 $A(1,\,2,\,-1)$ 且垂直於平面 $\pi: x-2y+3z=5$ 的直線方程式為何？
+    </div>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(this,'q5',true)">$\dfrac{x-1}{1}=\dfrac{y-2}{-2}=\dfrac{z+1}{3}$</button>
+      <button class="choice-btn" onclick="answer(this,'q5',false)">$\dfrac{x-1}{1}=\dfrac{y-2}{2}=\dfrac{z+1}{3}$</button>
+      <button class="choice-btn" onclick="answer(this,'q5',false)">$\dfrac{x+1}{1}=\dfrac{y+2}{-2}=\dfrac{z-1}{3}$</button>
+      <button class="choice-btn" onclick="answer(this,'q5',false)">$\dfrac{x-1}{3}=\dfrac{y-2}{-2}=\dfrac{z+1}{1}$</button>
+    </div>
+    <div class="quiz-explain" id="q5-exp">
+      <strong style="color:var(--teal);">解析：</strong><br>
+      直線垂直於平面，代表<strong>直線的方向向量 $=$ 平面的法向量</strong>。<br><br>
+      平面 $\pi: x-2y+3z=5$ 的法向量 $\vec{n}=(1,-2,3)$。<br><br>
+      以 $A(1,2,-1)$ 為過點，$\vec{v}=(1,-2,3)$ 為方向向量，代入對稱式：<br><br>
+      $\dfrac{x-1}{1}=\dfrac{y-2}{-2}=\dfrac{z+1}{3}$<br><br>
+      <span style="color:var(--text3);">⚠ 注意 $z$ 項：過點的 $z$ 坐標為 $-1$，對稱式中寫 $z-(-1)=z+1$，不要寫成 $z-1$！</span>
+    </div>
+  </div>
+
+  <!-- Q6 ★★★ 兩平行平面距離（需先化成相同係數） -->
+  <div class="quiz-card" id="q6">
+    <div class="quiz-num">題目 06 · 兩平行平面的距離<span style="margin-left:0.8rem;font-size:0.72rem;padding:0.15rem 0.5rem;border-radius:4px;background:rgba(255,90,106,0.1);color:var(--red);">★★★ 進階</span></div>
+    <div class="quiz-q">
+      平面 $\pi_1: 2x-2y+z=3$ 與平面 $\pi_2: 4x-4y+2z=18$ 之間的距離為？
+    </div>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(this,'q6',false)">$1$</button>
+      <button class="choice-btn" onclick="answer(this,'q6',true)">$2$</button>
+      <button class="choice-btn" onclick="answer(this,'q6',false)">$3$</button>
+      <button class="choice-btn" onclick="answer(this,'q6',false)">$5$</button>
+    </div>
+    <div class="quiz-explain" id="q6-exp">
+      <strong style="color:var(--teal);">解析：</strong><br>
+      <strong>第一步：化成相同法向量。</strong><br>
+      $\pi_2: 4x-4y+2z=18$，兩端除以 $2$，得 $\pi_2': 2x-2y+z=9$。<br><br>
+      <strong>第二步：確認法向量相同，兩平面平行。</strong><br>
+      $\pi_1$ 與 $\pi_2'$ 的法向量均為 $\vec{n}=(2,-2,1)$，且 $\dfrac{3}{9}\neq 1$，故兩平面平行（不重合）。<br><br>
+      <strong>第三步：套公式。</strong><br>
+      $|\vec{n}|=\sqrt{4+4+1}=3$<br>
+      $d=\dfrac{|3-9|}{3}=\dfrac{6}{3}=2$<br><br>
+      <span style="color:var(--red);">⚠ 此題常見陷阱：直接用 $|3-18|$ 計算，但 $\pi_2$ 的係數是 $\pi_1$ 的兩倍，<strong>必須先化齊</strong>！</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ── tab switching ── */
+function switchTab(id, btn){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>renderMath(),50);
+}
+function switchTabById(id){
+  const btns=[...document.querySelectorAll('.tab-btn')];
+  const labels={plane:1,line:2,relation:3,distance:4,quiz:5};
+  switchTab(id, btns[labels[id]]);
+}
+
+/* ── collapsible ── */
+function toggleCollapse(id, btn){
+  const el=document.getElementById(id);
+  const open=el.classList.contains('show');
+  el.classList.toggle('show');
+  btn.classList.toggle('open');
+}
+
+/* ── math helpers ── */
+function cross(a,b){
+  return [
+    a[1]*b[2]-a[2]*b[1],
+    a[2]*b[0]-a[0]*b[2],
+    a[0]*b[1]-a[1]*b[0]
+  ];
+}
+function dot(a,b){ return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]; }
+function mag(v){ return Math.sqrt(v[0]**2+v[1]**2+v[2]**2); }
+function fmt(n){ return Number.isInteger(n)?String(n):parseFloat(n.toFixed(4)).toString(); }
+function fracFmt(num,den){
+  if(den===0) return '∞';
+  const g=gcd(Math.abs(Math.round(num*1000)),Math.abs(Math.round(den*1000)));
+  const n2=Math.round(num*1000)/g, d2=Math.round(den*1000)/g;
+  if(d2===1000) return fmt(n2/1000);
+  return `${fmt(n2/1000)} / ${fmt(d2/1000)}`;
+}
+function gcd(a,b){ return b===0?a:gcd(b,a%b); }
+
+/* ── calculators ── */
+function calcCross(){
+  const u=[+$('u1'),+$('u2'),+$('u3')];
+  const v=[+$('v1'),+$('v2'),+$('v3')];
+  const n=cross(u,v);
+  const res=document.getElementById('cross-result');
+  document.getElementById('cross-val').textContent=`(${fmt(n[0])}, ${fmt(n[1])}, ${fmt(n[2])})`;
+  document.getElementById('cross-steps').innerHTML=
+    `u × v = (u₂v₃−u₃v₂, u₃v₁−u₁v₃, u₁v₂−u₂v₁)\n`+
+    `= (${fmt(u[1])}×${fmt(v[2])}−${fmt(u[2])}×${fmt(v[1])}, ${fmt(u[2])}×${fmt(v[0])}−${fmt(u[0])}×${fmt(v[2])}, ${fmt(u[0])}×${fmt(v[1])}−${fmt(u[1])}×${fmt(v[0])})\n`+
+    `= (${fmt(n[0])}, ${fmt(n[1])}, ${fmt(n[2])})`;
+  res.classList.add('show');
+}
+
+function calcDist(){
+  const a=+$('d_a'),b=+$('d_b'),c=+$('d_c'),d=+$('d_d');
+  const x0=+$('d_x0'),y0=+$('d_y0'),z0=+$('d_z0');
+  const num=Math.abs(a*x0+b*y0+c*z0+d);
+  const den=Math.sqrt(a*a+b*b+c*c);
+  if(den===0){alert('係數 a,b,c 不能全為零！');return;}
+  const dist=num/den;
+  document.getElementById('dist-val').textContent=`d = ${fmt(dist)}`;
+  document.getElementById('dist-steps').textContent=
+    `分子：|${fmt(a)}×${fmt(x0)} + (${fmt(b)})×${fmt(y0)} + ${fmt(c)}×${fmt(z0)} + ${fmt(d)}|\n`+
+    `     = |${fmt(a*x0+b*y0+c*z0+d)}| = ${fmt(num)}\n`+
+    `分母：√(${fmt(a)}² + ${fmt(b)}² + ${fmt(c)}²) = √${fmt(a*a+b*b+c*c)} ≈ ${fmt(den)}\n`+
+    `距離 d = ${fmt(num)} ÷ ${fmt(den)} ≈ ${fmt(dist)}`;
+  document.getElementById('dist-result').classList.add('show');
+}
+
+function calcLine(){
+  const x0=+$('lx0'),y0=+$('ly0'),z0=+$('lz0');
+  const l=+$('ll'),m=+$('lm'),n=+$('ln');
+  const signStr=(v,first=false)=>v>=0?(first?`${fmt(v)}`:`+${fmt(v)}`):`${fmt(v)}`;
+
+  let param=`x = ${fmt(x0)} ${signStr(l)}t\ny = ${fmt(y0)} ${signStr(m)}t\nz = ${fmt(z0)} ${signStr(n)}t`;
+
+  let parts=[];
+  if(l!==0) parts.push(`(x ${x0>=0?'−':'+'} ${fmt(Math.abs(x0))}) / ${fmt(l)}`);
+  else parts.push(`x = ${fmt(x0)}`);
+  if(m!==0) parts.push(`(y ${y0>=0?'−':'+'} ${fmt(Math.abs(y0))}) / ${fmt(m)}`);
+  else parts.push(`y = ${fmt(y0)}`);
+  if(n!==0) parts.push(`(z ${z0>=0?'−':'+'} ${fmt(Math.abs(z0))}) / ${fmt(n)}`);
+  else parts.push(`z = ${fmt(z0)}`);
+
+  const sym=parts.join(' = ');
+
+  document.getElementById('line-param').innerHTML=`<pre style="font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--teal);">${param}</pre>`;
+  document.getElementById('line-sym').innerHTML=`<code style="font-family:'JetBrains Mono',monospace;font-size:0.88rem;color:var(--blue);">${sym}</code>`;
+  document.getElementById('line-result').classList.add('show');
+}
+
+function calcRelation(){
+  const p1=[+$('r_px1'),+$('r_py1'),+$('r_pz1')];
+  const p2=[+$('r_px2'),+$('r_py2'),+$('r_pz2')];
+  const v1=[+$('r_d1x'),+$('r_d1y'),+$('r_d1z')];
+  const v2=[+$('r_d2x'),+$('r_d2y'),+$('r_d2z')];
+
+  const cv=cross(v1,v2);
+  const cvMag=mag(cv);
+  const dp12=[p2[0]-p1[0],p2[1]-p1[1],p2[2]-p1[2]];
+
+  let result='', steps='';
+
+  if(cvMag<1e-10){
+    // parallel or coincident
+    const k=v1[0]!==0?v2[0]/v1[0]:v1[1]!==0?v2[1]/v1[1]:v2[2]/v1[2];
+    const sameLine=Math.abs(dot(cross(dp12,v1),[0,0,0]))<1e-10&&mag(cross(dp12,v1))<1e-10;
+    result=sameLine?'重合（同一條直線）':'平行';
+    steps=`v₁ × v₂ ≈ (0,0,0)，兩方向向量平行。\n`+
+          (sameLine?'P₁P₂ 與 v₁ 平行，兩直線重合。':'P₁P₂ 與 v₁ 不平行，兩直線平行。');
+  } else {
+    const triple=dot(dp12,cv);
+    if(Math.abs(triple)<1e-8){
+      result='相交（有共同點）';
+      steps=`v₁ × v₂ = (${fmt(cv[0])}, ${fmt(cv[1])}, ${fmt(cv[2])})\n`+
+            `P₁P₂ · (v₁×v₂) = ${fmt(triple)} ≈ 0，故兩直線共面且不平行，為相交直線。`;
+    } else {
+      result='異面直線';
+      steps=`v₁ × v₂ = (${fmt(cv[0])}, ${fmt(cv[1])}, ${fmt(cv[2])})\n`+
+            `P₁P₂ = (${fmt(dp12[0])}, ${fmt(dp12[1])}, ${fmt(dp12[2])})\n`+
+            `P₁P₂ · (v₁×v₂) = ${fmt(triple)} ≠ 0，故兩直線不共面，為異面直線。\n`+
+            `兩直線距離 = ${fmt(Math.abs(triple)/cvMag)}`;
+    }
+  }
+
+  document.getElementById('rel-val').textContent=result;
+  document.getElementById('rel-steps').textContent=steps;
+  document.getElementById('rel-result').classList.add('show');
+}
+
+function calcSkew(){
+  const p1=[+$('sk_p1x'),+$('sk_p1y'),+$('sk_p1z')];
+  const p2=[+$('sk_p2x'),+$('sk_p2y'),+$('sk_p2z')];
+  const v1=[+$('sk_v1x'),+$('sk_v1y'),+$('sk_v1z')];
+  const v2=[+$('sk_v2x'),+$('sk_v2y'),+$('sk_v2z')];
+  const dp=[p2[0]-p1[0],p2[1]-p1[1],p2[2]-p1[2]];
+  const cv=cross(v1,v2);
+  const cvMag=mag(cv);
+  const result=document.getElementById('skew-result');
+  const typeEl=document.getElementById('skew-type');
+  const distEl=document.getElementById('skew-val');
+  const stepsEl=document.getElementById('skew-steps');
+  const lbl=document.getElementById('skew-dist-lbl');
+
+  if(cvMag<1e-10){
+    typeEl.textContent='兩直線平行（無法計算異面距離）';
+    lbl.textContent=''; distEl.textContent='';
+    stepsEl.textContent='方向向量成比例，兩直線平行，請改用「點到直線」公式計算間距。';
+  } else {
+    const triple=dot(dp,cv);
+    if(Math.abs(triple)<1e-8){
+      typeEl.textContent='兩直線相交（距離為 0）';
+      lbl.textContent='距離'; distEl.textContent='0';
+      stepsEl.textContent=`v₁×v₂=(${fmt(cv[0])},${fmt(cv[1])},${fmt(cv[2])})\nP₁P₂·(v₁×v₂)=${fmt(triple)}≈0，相交。`;
+    } else {
+      const d=Math.abs(triple)/cvMag;
+      typeEl.textContent='異面直線';
+      lbl.textContent='兩直線之間的距離';
+      distEl.textContent=`d ≈ ${fmt(d)}`;
+      stepsEl.textContent=
+        `公垂向量 v₁×v₂ = (${fmt(cv[0])}, ${fmt(cv[1])}, ${fmt(cv[2])})\n`+
+        `|v₁×v₂| = ${fmt(cvMag)}\n`+
+        `P₁P₂ = (${fmt(dp[0])}, ${fmt(dp[1])}, ${fmt(dp[2])})\n`+
+        `P₁P₂ · (v₁×v₂) = ${fmt(triple)}\n`+
+        `d = |${fmt(triple)}| / ${fmt(cvMag)} ≈ ${fmt(d)}`;
+    }
+  }
+  result.classList.add('show');
+}
+
+/* ── quiz ── */
+let scores={};
+let correct=0;
+
+function answer(btn, qid, isCorrect){
+  if(scores[qid]!==undefined) return;
+  scores[qid]=isCorrect;
+  if(isCorrect) correct++;
+
+  const card=document.getElementById(qid);
+  card.querySelectorAll('.choice-btn').forEach(b=>{
+    b.disabled=true;
+    if(b===btn) b.classList.add(isCorrect?'correct':'wrong');
+  });
+  // reveal correct if wrong
+  if(!isCorrect){
+    card.querySelectorAll('.choice-btn').forEach(b=>{
+      if(b.onclick.toString().includes('true')) b.classList.add('correct');
+    });
+  }
+  document.getElementById(qid+'-exp').classList.add('show');
+  document.getElementById('score-count').textContent=correct;
+  setTimeout(()=>renderMath(),50);
+}
+
+function resetQuiz(){
+  scores={}; correct=0;
+  document.getElementById('score-count').textContent=0;
+  document.querySelectorAll('.quiz-card').forEach(card=>{
+    card.querySelectorAll('.choice-btn').forEach(b=>{
+      b.disabled=false;
+      b.classList.remove('correct','wrong');
+    });
+    const id=card.id;
+    const exp=document.getElementById(id+'-exp');
+    if(exp) exp.classList.remove('show');
+  });
+}
+
+/* helper */
+function $(id){ return document.getElementById(id).value; }
+
+/* ── KaTeX render ── */
+function renderMath(){
+  if(typeof renderMathInElement==='function'){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  renderMath();
+  // fix q3 correct answer index
+});
+</script>
+</body>
+</html>
