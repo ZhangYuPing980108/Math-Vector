@@ -132,15 +132,34 @@
       animation: fadeUp 0.6s ease 0.1s forwards;
     }
 
+    /* 標題與校徽圖示的水平排列容器 */
+    .hd-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      margin-bottom: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+
+    /* 校徽圖示樣式 */
+    .hd-logo {
+      height: clamp(2.6rem, 6vw, 4rem);   /* 與 h1 文字高度相近 */
+      width: auto;
+      border-radius: 6px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(77, 159, 255, 0.3));
+      flex-shrink: 0;
+    }
+
     header h1 {
       font-family: 'Noto Serif TC', serif;
       font-weight: 600;
       font-size: clamp(1.7rem, 4.5vw, 2.8rem);
       color: #fff;
       line-height: 1.25;
-      margin-bottom: 0.6rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease 0.2s forwards;
+      margin-bottom: 0;   /* 由外層容器 .hd-title-row 控制下方間距 */
     }
 
     header h1 .h1-accent {
@@ -1191,6 +1210,54 @@
     .geo-wrap svg {
       filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
     }
+
+    /* ══════════════════════════════════════
+   頁尾 Footer
+══════════════════════════════════════ */
+    footer {
+      background: linear-gradient(180deg, var(--bg2) 0%, #060c1a 100%);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 頁尾頂部光條裝飾 */
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--blue), var(--teal), transparent);
+    }
+
+    /* 頁尾文字 */
+    .footer-text {
+      font-size: 0.88rem;
+      color: var(--text3);
+      letter-spacing: 0.12em;
+      transition: color 0.3s;
+    }
+
+    .footer-text:hover {
+      color: var(--text2);
+    }
+
+    /* 學校名稱強調色 */
+    .footer-school {
+      color: var(--blue2);
+      font-weight: 500;
+    }
+
+    /* 作者名稱強調色 */
+    .footer-author {
+      color: var(--teal);
+      font-weight: 500;
+    }
   </style>
 </head>
 
@@ -1199,7 +1266,11 @@
   <!-- ══════════ HEADER ══════════ -->
   <header>
     <p class="hd-tag">高中數學 · 高二 · 空間向量</p>
-    <h1>空間中的<span class="h1-accent">平面</span>與<span class="h1-accent2">直線</span></h1>
+    <!-- 校徽 + 標題水平排列 -->
+    <div class="hd-title-row">
+      <img src="nths.png" alt="學校校徽" class="hd-logo">
+      <h1>空間中的<span class="h1-accent">平面</span>與<span class="h1-accent2">直線</span></h1>
+    </div>
     <p class="hd-sub">平面方程式 · 直線方程式 · 位置關係 · 距離公式 · 段考重點整理</p>
     <div class="hd-chips">
       <span class="chip">法向量</span>
@@ -2647,6 +2718,16 @@
       animateProgressBars();
     });
   </script>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <p class="footer-text">
+      <span class="footer-school">楠梓高中</span>
+      <span style="color: var(--border3); margin: 0 0.5rem;">·</span>
+      <span class="footer-author">張育平</span>
+    </p>
+  </footer>
+
 </body>
 
 </html>
